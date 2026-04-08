@@ -1,0 +1,74 @@
+<header class="itau-header">
+  <div class="logo">itau</div>
+  <span>Abertura de Conta</span>
+</header>
+
+<div class="container">
+  @if (cadastroForm) {
+    <mat-stepper [linear]="true" #stepper>
+      
+      <mat-step [stepControl]="identificacaoGroup">
+        <form [formGroup]="identificacaoGroup" class="step-content">
+          <ng-template matStepLabel>Identificação</ng-template>
+          <h3>Olá! Vamos começar?</h3>
+          
+          <mat-radio-group formControlName="nacionalidade" class="radio-group">
+            <mat-radio-button value="brasileira">Brasileiro</mat-radio-button>
+            <mat-radio-button value="estrangeira">Estrangeiro</mat-radio-button>
+          </mat-radio-group>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Nome completo</mat-label>
+            <input matInput formControlName="nome">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>
+              {{ identificacaoGroup.get('nacionalidade')?.value === 'brasileira' ? 'CPF' : 'RNE' }}
+            </mat-label>
+            <input matInput formControlName="documento">
+          </mat-form-field>
+
+          <button mat-flat-button color="primary" matStepperNext [disabled]="identificacaoGroup.invalid">
+            PRÓXIMO
+          </button>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="enderecoGroup">
+        <form [formGroup]="enderecoGroup" class="step-content">
+          <ng-template matStepLabel>Endereço</ng-template>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>CEP</mat-label>
+            <input matInput formControlName="cep" (blur)="buscarCep()">
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Rua</mat-label>
+            <input matInput formControlName="logradouro">
+          </mat-form-field>
+
+          <div class="row">
+            <mat-form-field appearance="outline" style="width: 30%;">
+              <mat-label>Nº</mat-label>
+              <input matInput formControlName="numero">
+            </mat-form-field>
+            <mat-form-field appearance="outline" style="width: 65%;">
+              <mat-label>Bairro</mat-label>
+              <input matInput formControlName="bairro">
+            </mat-form-field>
+          </div>
+
+          <div class="actions">
+            <button mat-button matStepperPrevious>VOLTAR</button>
+            <button mat-flat-button color="primary" (click)="finalizar()" [disabled]="cadastroForm.invalid">
+              FINALIZAR
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+    </mat-stepper>
+  }
+</div>

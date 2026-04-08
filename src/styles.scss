@@ -1,0 +1,43 @@
+@use '@angular/material' as mat;
+
+// Definição de cores Itaú
+$itau-orange: #EC7000;
+$itau-blue: #003399;
+$itau-gray-bg: #F5F5F5;
+
+html {
+  height: 100%;
+  
+  // Aplicando o tema M3
+  @include mat.theme((
+    color: (
+      primary: mat.$orange-palette, // Mudamos para orange para facilitar
+      tertiary: mat.$blue-palette,
+    ),
+    typography: Roboto,
+    density: 0,
+  ));
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  color-scheme: light;
+  background-color: $itau-gray-bg; // Fundo cinza claro igual ao app do banco
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+
+  // Forçando as cores específicas do Itaú nos componentes do Material
+  --mdc-filled-button-container-color: #{$itau-orange};
+  --mdc-filled-button-label-text-color: white;
+  
+  // Customização do Stepper (Wizard)
+  --mat-stepper-header-selected-state-icon-background-color: #{$itau-orange};
+  --mat-stepper-header-edit-state-icon-background-color: #{$itau-orange};
+  --mat-app-background-color: #{$itau-gray-bg};
+}
+
+// Classe utilitária para o cabeçalho azul do Itaú
+.itau-blue-header {
+  background-color: $itau-blue;
+  color: white;
+}
