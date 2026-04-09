@@ -1,0 +1,25 @@
+.itau-header {
+  background-color: #ec7000; // Laranja Itaú
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+}
+
+.tab-content {
+  padding: 20px;
+  background-color: #f4f4f4; // Cinza clarinho de fundo
+  min-height: 100vh;
+}
+
+// Estilização das abas para parecerem mais profissionais
+.mat-mdc-tab .mdc-tab__text-label {
+  color: #333 !important;
+  font-weight: 500;
+}
+
+.mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: #ec7000 !important; // Cor ativa laranja
+}

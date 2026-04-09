@@ -1,0 +1,41 @@
+<div class="extrato-wrapper">
+  <div class="saldo-card">
+    <p>Saldo disponível</p>
+    <h2>{{ saldoAtual | currency:'BRL' }}</h2>
+  </div>
+
+  <div class="filtros-container">
+    <mat-form-field appearance="outline">
+      <mat-label>Período de</mat-label>
+      <input matInput [matDatepicker]="pickerInicio">
+      <mat-datepicker-toggle matIconSuffix [for]="pickerInicio"></mat-datepicker-toggle>
+      <mat-datepicker #pickerInicio></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Até</mat-label>
+      <input matInput [matDatepicker]="pickerFim">
+      <mat-datepicker-toggle matIconSuffix [for]="pickerFim"></mat-datepicker-toggle>
+      <mat-datepicker #pickerFim></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="lista-extrato">
+    <h3>Lançamentos</h3>
+    <mat-list>
+      @for (item of extrato; track item.descricao) {
+        <mat-list-item>
+          <mat-icon matListItemIcon [class.entrada]="item.tipo === 'entrada'" [class.saida]="item.tipo === 'saida'">
+            {{ item.tipo === 'entrada' ? 'add_circle' : 'remove_circle' }}
+          </mat-icon>
+          <div matListItemTitle class="item-titulo">{{ item.descricao }}</div>
+          <div matListItemLine>{{ item.data | date:'dd MMM' }} • {{ item.categoria }}</div>
+          <div matListItemMeta class="item-valor" [class.positivo]="item.tipo === 'entrada'">
+            {{ item.valor | currency:'BRL' }}
+          </div>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      }
+    </mat-list>
+  </div>
+</div>

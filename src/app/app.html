@@ -1,1 +1,20 @@
-<app-cadastro></app-cadastro>
+<header class="itau-header">
+  <div class="logo">itau</div>
+  <span>Portal do Cliente</span>
+</header>
+
+<mat-tab-group dynamicHeight mat-stretch-tabs="false" mat-align-tabs="start">
+  
+  <mat-tab label="Novo Cadastro">
+    <div class="tab-content">
+      <app-cadastro></app-cadastro>
+    </div>
+  </mat-tab>
+
+  <mat-tab label="Meu Extrato">
+    <div class="tab-content">
+      <app-extrato></app-extrato>
+    </div>
+  </mat-tab>
+
+</mat-tab-group>

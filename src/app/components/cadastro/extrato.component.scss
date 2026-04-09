@@ -1,0 +1,43 @@
+.extrato-wrapper {
+  max-width: 500px;
+  margin: 20px auto;
+  padding: 0 16px;
+  font-family: 'Itau Text', sans-serif;
+}
+
+.saldo-card {
+  background: #004691; // Azul Itaú
+  color: white;
+  padding: 24px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  
+  p { margin: 0; font-size: 0.9rem; opacity: 0.9; }
+  h2 { margin: 8px 0 0; font-size: 2rem; }
+}
+
+.filtros-container {
+  display: flex;
+  gap: 12px;
+  mat-form-field { flex: 1; }
+}
+
+.lista-extrato {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+
+  h3 { color: #333; margin-bottom: 16px; }
+}
+
+.item-titulo { font-weight: 500; color: #333; }
+
+.item-valor {
+  font-weight: 600;
+  color: #d32f2f; // Vermelho para saídas
+  &.positivo { color: #2e7d32; } // Verde para entradas
+}
+
+.entrada { color: #2e7d32; }
+.saida { color: #d32f2f; }
