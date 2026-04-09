@@ -17,21 +17,53 @@
             <mat-radio-button value="estrangeira">Estrangeiro</mat-radio-button>
           </mat-radio-group>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>Nome completo</mat-label>
             <input matInput formControlName="nome">
           </mat-form-field>
 
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>
               {{ identificacaoGroup.get('nacionalidade')?.value === 'brasileira' ? 'CPF' : 'RNE' }}
             </mat-label>
             <input matInput formControlName="documento">
           </mat-form-field>
 
-          <button mat-flat-button color="primary" matStepperNext [disabled]="identificacaoGroup.invalid">
-            PRÓXIMO
-          </button>
+          <div class="actions">
+            <button type="button" mat-flat-button color="primary" matStepperNext [disabled]="identificacaoGroup.invalid">
+              PRÓXIMO
+            </button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="financeiroFormGroup">
+        <form [formGroup]="financeiroFormGroup" class="step-content">
+          <ng-template matStepLabel>Financeiro</ng-template>
+          <h3>Fale um pouco sobre seu trabalho</h3>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Profissão</mat-label>
+            <mat-select formControlName="profissao">
+              @for (prof of profissoes; track prof) {
+                <mat-option [value]="prof">{{prof}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>Renda Mensal</mat-label>
+            <span matPrefix>R$&nbsp;</span>
+            <input matInput type="number" formControlName="rendaMensal" placeholder="0.00">
+            <mat-hint>Informe sua renda bruta mensal</mat-hint>
+          </mat-form-field>
+
+          <div class="actions">
+            <button type="button" mat-button matStepperPrevious>VOLTAR</button>
+            <button type="button" mat-flat-button color="primary" matStepperNext [disabled]="financeiroFormGroup.invalid">
+              PRÓXIMO
+            </button>
+          </div>
         </form>
       </mat-step>
 
@@ -39,30 +71,30 @@
         <form [formGroup]="enderecoGroup" class="step-content">
           <ng-template matStepLabel>Endereço</ng-template>
           
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>CEP</mat-label>
             <input matInput formControlName="cep" (blur)="buscarCep()">
           </mat-form-field>
           
-          <mat-form-field appearance="outline">
+          <mat-form-field appearance="outline" class="w-full">
             <mat-label>Rua</mat-label>
             <input matInput formControlName="logradouro">
           </mat-form-field>
 
-          <div class="row">
-            <mat-form-field appearance="outline" style="width: 30%;">
+          <div class="row" style="display: flex; gap: 10px;">
+            <mat-form-field appearance="outline" style="flex: 1;">
               <mat-label>Nº</mat-label>
               <input matInput formControlName="numero">
             </mat-form-field>
-            <mat-form-field appearance="outline" style="width: 65%;">
+            <mat-form-field appearance="outline" style="flex: 2;">
               <mat-label>Bairro</mat-label>
               <input matInput formControlName="bairro">
             </mat-form-field>
           </div>
 
           <div class="actions">
-            <button mat-button matStepperPrevious>VOLTAR</button>
-            <button mat-flat-button color="primary" (click)="finalizar()" [disabled]="cadastroForm.invalid">
+            <button type="button" mat-button matStepperPrevious>VOLTAR</button>
+            <button type="button" mat-flat-button color="primary" (click)="finalizar()" [disabled]="cadastroForm.invalid">
               FINALIZAR
             </button>
           </div>

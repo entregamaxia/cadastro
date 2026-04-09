@@ -4,12 +4,13 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
 // Angular Material Imports
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
-
 
 @Component({
   selector: 'app-cadastro',
@@ -22,7 +23,9 @@ import { MatRadioModule } from '@angular/material/radio';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule, // Adicionado para o Select de profissão
+    MatOptionModule  // Adicionado para as opções do Select
   ],
   templateUrl: './cadastro.html',
   styleUrls: ['./cadastro.scss']
@@ -31,23 +34,42 @@ export class CadastroComponent implements OnInit {
   cadastroForm!: FormGroup;
   loading = false;
 
+  // Lista de profissões para o select
+  profissoes: string[] = [
+    'Analista de Sistemas',
+    'Desenvolvedor(a)',
+    'Médico(a)',
+    'Advogado(a)',
+    'Autônomo(a)',
+    'Outros'
+  ];
+
   constructor(private _fb: FormBuilder, private http: HttpClient) {}
 
-  // Adicione estes getters dentro da classe CadastroComponent
-get identificacaoGroup(): FormGroup {
-  return this.cadastroForm.get('identificacao') as FormGroup;
-}
+  // Getters para facilitar o acesso no HTML
+  get identificacaoGroup(): FormGroup {
+    return this.cadastroForm.get('identificacao') as FormGroup;
+  }
 
-get enderecoGroup(): FormGroup {
-  return this.cadastroForm.get('endereco') as FormGroup;
-}
-  
+  get enderecoGroup(): FormGroup {
+    return this.cadastroForm.get('endereco') as FormGroup;
+  }
+
+  get financeiroFormGroup(): FormGroup {
+    return this.cadastroForm.get('financeiro') as FormGroup;
+  }
+
   ngOnInit() {
     this.cadastroForm = this._fb.group({
       identificacao: this._fb.group({
         nacionalidade: ['brasileira', Validators.required],
         nome: ['', [Validators.required, Validators.minLength(3)]],
         documento: ['', [Validators.required]]
+      }),
+      // Novo grupo financeiro que adicionamos
+      financeiro: this._fb.group({
+        profissao: ['', Validators.required],
+        rendaMensal: [null, [Validators.required, Validators.min(1)]]
       }),
       endereco: this._fb.group({
         cep: ['', [Validators.required, Validators.pattern(/^\d{8}$/)]],
@@ -77,7 +99,9 @@ get enderecoGroup(): FormGroup {
   finalizar() {
     if (this.cadastroForm.valid) {
       console.log('Payload para AWS:', this.cadastroForm.value);
-      alert('Enviando dados para o API Gateway...');
+      alert('Cadastro finalizado com sucesso! Enviando para AWS...');
+    } else {
+      alert('Por favor, preencha todos os campos corretamente.');
     }
   }
 }
