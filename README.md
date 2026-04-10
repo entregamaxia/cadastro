@@ -1,4 +1,4 @@
-[graph TD
+graph TD
     %% Usuário e Internet
     User((Usuário / Navegador)):::user
 
@@ -18,7 +18,7 @@
             LambdaFunction[[AWS Lambda<br/>Handler do Cadastro]]:::compute
         end
         
-        subgraph Messaging [Mensajeria]
+        subgraph Messaging [Mensageria]
             SQSQueue[/Amazon SQS<br/>Fila de Cadastro/]:::appint
         end
     end
@@ -32,7 +32,7 @@
     %% Fluxos
     User --> CloudFront
     CloudFront -.-> S3Bucket
-    User -- POST /cadastro --> APIGateway
+    User -- "POST /cadastro" --> APIGateway
     APIGateway --> LambdaFunction
     LambdaFunction --> SQSQueue
 
@@ -46,4 +46,4 @@
     classDef storage fill:#fff3e0,stroke:#e65100,stroke-width:2px
     classDef compute fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
     classDef appint fill:#e3f2fd,stroke:#0d47a1,stroke-width:2px
-    classDef cicd fill:#f5f5f5,stroke:#212121,stroke-width:2px]
+    classDef cicd fill:#f5f5f5,stroke:#212121,stroke-width:2px
