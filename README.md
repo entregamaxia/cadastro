@@ -1,4 +1,4 @@
-graph TD
+[graph TD
     %% Usuário e Internet
     User((Usuário / Navegador)):::user
 
@@ -46,4 +46,4 @@ graph TD
     classDef storage fill:#fff3e0,stroke:#e65100,stroke-width:2px
     classDef compute fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px
     classDef appint fill:#e3f2fd,stroke:#0d47a1,stroke-width:2px
-    classDef cicd fill:#f5f5f5,stroke:#212121,stroke-width:2px
+    classDef cicd fill:#f5f5f5,stroke:#212121,stroke-width:2px]
