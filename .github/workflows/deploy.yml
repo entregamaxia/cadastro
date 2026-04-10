@@ -1,0 +1,40 @@
+name: CI/CD AWS Serverless
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Código
+        uses: actions/checkout@v3
+
+      - name: Configurar AWS CLI
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Instalar Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init & Apply
+        run: |
+          terraform init
+          zip -j lambda_function.zip lambda/index.js
+          terraform apply -auto-approve
+
+      - name: Build Angular e Sync S3
+        run: |
+          # Se você tiver um build do Angular, rode os comandos aqui
+          # Ex: npm install && npm run build
+          # Por enquanto, enviamos a pasta 'frontend'
+          aws s3 sync ./frontend s3://${{ var.projeto_nome }}-frontend --delete
+
+      - name: Invalidação de Cache CloudFront
+        run: |
+          DIST_ID=$(terraform output -raw cloudfront_distribution_id)
+          aws cloudfront create-invalidation --distribution-id $DIST_ID --paths "/*"
