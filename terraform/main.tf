@@ -7,7 +7,7 @@ variable "projeto_nome" {
 
 # 2. Bucket S3 para Hospedagem do Angular
 resource "aws_s3_bucket" "frontend_bucket" {
-  bucket        = "${var.projeto_nome}-frontend"
+  bucket        = "cadastro-ia-itau-frontend"
   force_destroy = true # Permite deletar o bucket mesmo com arquivos dentro
 }
 
