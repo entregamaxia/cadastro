@@ -32,7 +32,7 @@ jobs:
           # Se você tiver um build do Angular, rode os comandos aqui
           # Ex: npm install && npm run build
           # Por enquanto, enviamos a pasta 'frontend'
-          aws s3 sync ./frontend s3://${{ var.projeto_nome }}-frontend --delete
+          aws s3 sync ./frontend s3://cadastro-ia-itau-frontend --delete
 
       - name: Invalidação de Cache CloudFront
         run: |
